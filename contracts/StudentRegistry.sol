@@ -8,12 +8,10 @@ contract StudentRegistry {
     // Struct to store student information
     struct Student {
         string name;
-        uint regNo;
-        uint dateOfBirth;
-        uint class;
+        uint256 regNo;
+        uint256 dateOfBirth;
+        uint256 class;
     }
-
-    event NewStudent(string name, uint256 regNo, uint256 dataOfBirth, uint56 class);
 
     // Mapping to store student's information
     mapping (uint256 => Student) public students;
@@ -38,27 +36,25 @@ contract StudentRegistry {
     }
 
     // Function to register a new student
-    function registerStudent(string memory _name, uint256 _regNo, uint256 _dataOfBirth, uint256 _class) external onlyOwner {
+    function registerStudent(string memory _name, uint256 _regNo, uint256 _dateOfBirth, uint256 _class) external onlyOwner {
         Student memory newStudent = Student(_name, _regNo, _dateOfBirth, _class);
         students[_regNo] = newStudent;
         registeredStudents.push(_regNo);
-        emit NewStudent(_name, _regNo, _dataOfBirth, _class);
+        
     }
 
     // Function to edit student details
-    function editStudent(uint256 _regNo, string memory _name, uint256 _dateOfBirth, uint256 _class) external onlyOwner {
+    function editStudent(uint256 _regNo,  string memory _name, uint256 _dateOfBirth, uint256 _class) external onlyOwner {
         require(students[_regNo].regNo != 0, "Student not registered");
-        Student memory editStudent = students[_regNo];
-        editStudent.name = _name;
-        editStudent.dataOfBirth = _dataOfBirth;
-        editStudent.class = _class;
+        students[_regNo].name = _name;
+        students[_regNo].dateOfBirth = _dateOfBirth;
+        students[_regNo].class = _class;
     }
 
     // Function to view a student details
-    function viewStudent(uint256 _regNo) external view returns (string memory, uint, uint, uint) {
+    function v_Student(uint256 _regNo) external view returns (string memory, uint, uint, uint) {
         require(students[_regNo].regNo != 0, "Student not registered");
         Student memory viewStudent = students[_regNo];
-
         return (viewStudent.name, viewStudent.regNo, viewStudent.dateOfBirth, viewStudent.class);
     }
 
