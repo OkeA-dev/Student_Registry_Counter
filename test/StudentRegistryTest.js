@@ -18,7 +18,7 @@ describe("StudentRegistyTest", function () {
     return { studentRegistry, owner, student1, student2, student3 };
   }
 
-  describe("Deployment", function () {
+  describe("Test Deployment", function () {
     
 
     it("Should set the right owner", async function () {
